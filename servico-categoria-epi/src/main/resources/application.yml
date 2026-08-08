@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: servico-categoria-epi
+  config:
+    import: "configserver:http://localhost:8888"

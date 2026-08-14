@@ -8,6 +8,7 @@ import br.com.renan.almoxarifado.exceptions.EpiCategoryNotFoundException;
 import br.com.renan.almoxarifado.exceptions.EpiNotFoundException;
 import br.com.renan.almoxarifado.repositories.EpiRepository;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -37,7 +38,12 @@ public class EpiService {
     }
 
     public List<EpiResponse> findAll() {
-        return repository.findAll().stream().map(EpiResponse::from).toList();
+        List<Epi> epis = repository.findAll();
+        List<EpiResponse> responses = new ArrayList<>();
+        for (Epi epi : epis) {
+            responses.add(EpiResponse.from(epi));
+        }
+        return responses;
     }
 
     public EpiResponse findById(long id) {

@@ -6,6 +6,7 @@ import br.com.renan.almoxarifado.entities.Employee;
 import br.com.renan.almoxarifado.exceptions.EmployeeNotFoundException;
 import br.com.renan.almoxarifado.repositories.EmployeeRepository;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -29,7 +30,12 @@ public class EmployeeService {
     }
 
     public List<EmployeeResponse> findAll() {
-        return repository.findAll().stream().map(EmployeeResponse::from).toList();
+        List<Employee> employees = repository.findAll();
+        List<EmployeeResponse> responses = new ArrayList<>();
+        for (Employee employee : employees) {
+            responses.add(EmployeeResponse.from(employee));
+        }
+        return responses;
     }
 
     public EmployeeResponse findById(long id) {

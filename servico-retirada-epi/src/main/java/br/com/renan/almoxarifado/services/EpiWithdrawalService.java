@@ -11,6 +11,7 @@ import br.com.renan.almoxarifado.exceptions.InsufficientStockException;
 import br.com.renan.almoxarifado.repositories.EpiRepository;
 import br.com.renan.almoxarifado.repositories.EpiWithdrawalRepository;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -61,6 +62,11 @@ public class EpiWithdrawalService {
     }
 
     public List<EpiWithdrawalResponse> findAll() {
-        return withdrawalRepository.findAll().stream().map(EpiWithdrawalResponse::from).toList();
+        List<EpiWithdrawal> withdrawals = withdrawalRepository.findAll();
+        List<EpiWithdrawalResponse> responses = new ArrayList<>();
+        for (EpiWithdrawal withdrawal : withdrawals) {
+            responses.add(EpiWithdrawalResponse.from(withdrawal));
+        }
+        return responses;
     }
 }

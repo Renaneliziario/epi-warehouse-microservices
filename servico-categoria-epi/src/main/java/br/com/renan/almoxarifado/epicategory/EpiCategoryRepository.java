@@ -1,5 +1,5 @@
 package br.com.renan.almoxarifado.epicategory;
 
-public interface EpiCategoryRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
 
-}
+public interface EpiCategoryRepository extends JpaRepository<EpiCategory, Long> {}

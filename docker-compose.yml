@@ -1,0 +1,62 @@
+services:
+  servidor-config:
+    build:
+      context: .
+      dockerfile: servidor-config/Dockerfile
+    ports:
+      - "8888:8888"
+    environment:
+      - TZ=America/Sao_Paulo
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8888/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  servico-funcionario:
+    build:
+      context: .
+      dockerfile: servico-funcionario/Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      - TZ=America/Sao_Paulo
+      - CONFIG_SERVER_URL=http://servidor-config:8888
+      - DB_PASSWORD=${DB_PASSWORD:-password}
+    depends_on:
+      servidor-config:
+        condition: service_healthy
+
+  servico-categoria-epi:
+    build:
+      context: .
+      dockerfile: servico-categoria-epi/Dockerfile
+    ports:
+      - "8082:8082"
+    environment:
+      - TZ=America/Sao_Paulo
+      - CONFIG_SERVER_URL=http://servidor-config:8888
+      - DB_PASSWORD=${DB_PASSWORD:-password}
+    depends_on:
+      servidor-config:
+        condition: service_healthy
+
+  servico-retirada-epi:
+    build:
+      context: .
+      dockerfile: servico-retirada-epi/Dockerfile
+    ports:
+      - "8083:8083"
+    environment:
+      - TZ=America/Sao_Paulo
+      - CONFIG_SERVER_URL=http://servidor-config:8888
+      - DB_PASSWORD=${DB_PASSWORD:-password}
+      - SERVICO_FUNCIONARIO_URL=http://servico-funcionario:8081
+      - SERVICO_CATEGORIA_EPI_URL=http://servico-categoria-epi:8082
+    depends_on:
+      servidor-config:
+        condition: service_healthy
+      servico-funcionario:
+        condition: service_started
+      servico-categoria-epi:
+        condition: service_started

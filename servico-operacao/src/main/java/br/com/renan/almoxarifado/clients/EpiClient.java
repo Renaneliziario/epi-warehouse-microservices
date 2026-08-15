@@ -25,4 +25,11 @@ public class EpiClient {
             return false;
         }
     }
+
+    public EpiInfo fetch(long epiId) {
+        return restClient.get()
+                .uri("/epis/{id}", epiId)
+                .retrieve()
+                .body(EpiInfo.class);
+    }
 }

@@ -1,6 +1,7 @@
 package br.com.renan.almoxarifado.services;
 
 import br.com.renan.almoxarifado.clients.EpiClient;
+import br.com.renan.almoxarifado.clients.EpiInfo;
 import br.com.renan.almoxarifado.dtos.OperacaoEpiRequest;
 import br.com.renan.almoxarifado.dtos.OperacaoEpiResponse;
 import br.com.renan.almoxarifado.entities.OperacaoEpi;
@@ -24,17 +25,14 @@ public class OperacaoEpiService {
     private final EpiClient epiClient;
 
     public OperacaoEpiResponse create(long operacaoId, OperacaoEpiRequest request) {
-        log.info("Associando EPI a operacao, operacaoId={}, epiId={}", operacaoId, request.getEpiId());
+        log.info("Associando EPI a operação, operacaoId={}, epiId={}", operacaoId, request.getEpiId());
         operacaoService.findEntity(operacaoId);
-        if (!epiClient.exists(request.getEpiId())) {
-            log.warn("EPI inexistente ao associar a operacao, epiId={}", request.getEpiId());
-            throw new EpiNotFoundException(request.getEpiId());
-        }
+        EpiInfo epiInfo = buscarEpiOuFalhar(request.getEpiId());
         OperacaoEpi operacaoEpi = new OperacaoEpi(null, operacaoId, request.getEpiId(), request.isObrigatorio(),
                 request.getObservacao());
         OperacaoEpi saved = repository.save(operacaoEpi);
         log.info("EPI associado, id={}", saved.getId());
-        return OperacaoEpiResponse.from(saved);
+        return OperacaoEpiResponse.from(saved, epiInfo.getName());
     }
 
     public List<OperacaoEpiResponse> findByOperacaoId(long operacaoId) {
@@ -42,8 +40,18 @@ public class OperacaoEpiService {
         List<OperacaoEpi> vinculos = repository.findByOperacaoId(operacaoId);
         List<OperacaoEpiResponse> responses = new ArrayList<>();
         for (OperacaoEpi vinculo : vinculos) {
-            responses.add(OperacaoEpiResponse.from(vinculo));
+            EpiInfo epiInfo = epiClient.fetch(vinculo.getEpiId());
+            String nome = epiInfo != null ? epiInfo.getName() : null;
+            responses.add(OperacaoEpiResponse.from(vinculo, nome));
         }
         return responses;
+    }
+
+    private EpiInfo buscarEpiOuFalhar(long epiId) {
+        if (!epiClient.exists(epiId)) {
+            log.warn("EPI inexistente ao associar à operação, epiId={}", epiId);
+            throw new EpiNotFoundException(epiId);
+        }
+        return epiClient.fetch(epiId);
     }
 }

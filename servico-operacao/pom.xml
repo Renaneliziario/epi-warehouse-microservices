@@ -12,7 +12,7 @@
 
     <artifactId>servico-operacao</artifactId>
     <name>servico-operacao</name>
-    <description>Gestao de seguranca industrial: EPIs e riscos exigidos por operacao de trabalho</description>
+    <description>Gestão de segurança industrial: EPIs e riscos exigidos por operação de trabalho</description>
 
     <dependencies>
         <dependency>

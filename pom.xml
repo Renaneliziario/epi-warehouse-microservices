@@ -9,7 +9,7 @@
     <version>0.1.0</version>
     <packaging>pom</packaging>
     <name>epi-warehouse-microservices</name>
-    <description>Almoxarifado de EPI decomposto em microsservicos</description>
+    <description>Almoxarifado de EPI decomposto em microsserviços</description>
 
     <properties>
         <java.version>17</java.version>

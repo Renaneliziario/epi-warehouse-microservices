@@ -12,7 +12,7 @@
 
     <artifactId>servidor-config</artifactId>
     <name>servidor-config</name>
-    <description>Servidor de configuracao centralizada Spring Cloud Config</description>
+    <description>Servidor de configuração centralizada Spring Cloud Config</description>
 
     <dependencies>
         <dependency>

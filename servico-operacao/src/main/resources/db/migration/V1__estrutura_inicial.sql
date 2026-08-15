@@ -1,22 +1,22 @@
 -- ============================================================
--- SERVICO-OPERACAO
+-- SERVIÇO-OPERAÇÃO
 -- V1__estrutura_inicial.sql
 --
 -- PostgreSQL + Spring Boot + Flyway
 --
 -- RESPONSABILIDADE:
 --   Setores
---   Operacoes
+--   Operações
 --   Riscos
---   Relacao Operacao x Risco
---   Relacao Operacao x EPI (so o vinculo, o catalogo de EPI
+--   Relação Operação x Risco
+--   Relação Operação x EPI (só o vínculo, o catálogo de EPI
 --   pertence ao servico-retirada-epi, validado via EpiClient)
 --
--- Este banco pertence EXCLUSIVAMENTE ao servico-operacao.
--- Nao existe tabela "epi" aqui de proposito: o catalogo de EPI
--- e propriedade exclusiva do servico-retirada-epi, duplicar
--- essa tabela quebraria a fronteira de dominio entre os dois
--- servicos.
+-- Este banco pertence EXCLUSIVAMENTE ao serviço-operação.
+-- Não existe tabela "epi" aqui de propósito: o catálogo de EPI
+-- é propriedade exclusiva do servico-retirada-epi, duplicar
+-- essa tabela quebraria a fronteira de domínio entre os dois
+-- serviços.
 -- ============================================================
 
 
@@ -61,7 +61,7 @@ CREATE TABLE risco (
 
 
 -- ============================================================
--- 3. OPERACAO
+-- 3. OPERAÇÃO
 -- ============================================================
 
 CREATE TABLE operacao (
@@ -88,7 +88,7 @@ CREATE TABLE operacao (
 
 
 -- ============================================================
--- 4. OPERACAO x RISCO
+-- 4. OPERAÇÃO x RISCO
 -- ============================================================
 
 CREATE TABLE operacao_risco (
@@ -118,12 +118,12 @@ CREATE TABLE operacao_risco (
 
 
 -- ============================================================
--- 5. OPERACAO x EPI
+-- 5. OPERAÇÃO x EPI
 --
--- epi_id NAO tem FK: o catalogo de EPI vive em outro banco,
--- de outro servico (servico-retirada-epi). A validacao de
--- existencia acontece em tempo de execucao via EpiClient
--- (REST), nao via constraint de banco.
+-- epi_id NÃO tem FK: o catálogo de EPI vive em outro banco,
+-- de outro serviço (servico-retirada-epi). A validação de
+-- existência acontece em tempo de execução via EpiClient
+-- (REST), não via constraint de banco.
 -- ============================================================
 
 CREATE TABLE operacao_epi (
@@ -213,7 +213,7 @@ INSERT INTO risco (nome, descricao, categoria) VALUES
 
 
 -- ============================================================
--- 9. DADOS INICIAIS - OPERACOES
+-- 9. DADOS INICIAIS - OPERAÇÕES
 -- ============================================================
 
 INSERT INTO operacao (nome, descricao, setor_id)
@@ -249,7 +249,7 @@ JOIN setor s ON s.nome = dados.setor_nome;
 
 
 -- ============================================================
--- 10. OPERACAO x RISCO
+-- 10. OPERAÇÃO x RISCO
 -- ============================================================
 
 INSERT INTO operacao_risco (operacao_id, risco_id, nivel_risco)
@@ -333,7 +333,7 @@ JOIN risco r ON r.nome = dados.risco_nome;
 -- ============================================================
 -- FIM DA MIGRATION V1
 --
--- Seed de operacao_epi nao entra aqui: os epi_id validos so
+-- Seed de operacao_epi não entra aqui: os epi_id válidos só
 -- existem depois de cadastrados no servico-retirada-epi.
--- Popular via POST /operacoes/{id}/epis, nao via SQL.
+-- Popular via POST /operacoes/{id}/epis, não via SQL.
 -- ============================================================

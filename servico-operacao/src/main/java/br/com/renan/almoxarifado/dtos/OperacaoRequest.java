@@ -13,11 +13,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class OperacaoRequest {
 
-    @NotBlank(message = "nome e obrigatorio")
+    @NotBlank(message = "nome é obrigatório")
     private String nome;
 
     private String descricao;
 
-    @NotNull(message = "setorId e obrigatorio")
+    @NotNull(message = "setorId é obrigatório")
     private Long setorId;
 }

@@ -46,7 +46,7 @@ public class EpiWithdrawalService {
         }
 
         if (epi.getCurrentStock() < request.getQuantity()) {
-            log.warn("Estoque insuficiente, epiId={}, solicitado={}, disponivel={}",
+            log.warn("Estoque insuficiente, epiId={}, solicitado={}, disponível={}",
                     request.getEpiId(), request.getQuantity(), epi.getCurrentStock());
             throw new InsufficientStockException(request.getEpiId(), request.getQuantity(), epi.getCurrentStock());
         }

@@ -14,19 +14,19 @@ import lombok.Setter;
 @AllArgsConstructor
 public class EpiRequest {
 
-    @NotBlank(message = "name e obrigatorio")
+    @NotBlank(message = "name é obrigatório")
     private String name;
 
-    @NotBlank(message = "description e obrigatorio")
+    @NotBlank(message = "description é obrigatório")
     private String description;
 
-    @NotBlank(message = "documentUrl e obrigatorio")
+    @NotBlank(message = "documentUrl é obrigatório")
     private String documentUrl;
 
-    @NotNull(message = "epiCategoryId e obrigatorio")
+    @NotNull(message = "epiCategoryId é obrigatório")
     private Long epiCategoryId;
 
-    @NotNull(message = "currentStock e obrigatorio")
-    @Min(value = 0, message = "currentStock nao pode ser negativo")
+    @NotNull(message = "currentStock é obrigatório")
+    @Min(value = 0, message = "currentStock não pode ser negativo")
     private Integer currentStock;
 }

@@ -13,10 +13,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class OperacaoRiscoRequest {
 
-    @NotNull(message = "riscoId e obrigatorio")
+    @NotNull(message = "riscoId é obrigatório")
     private Long riscoId;
 
-    @NotBlank(message = "nivelRisco e obrigatorio")
+    @NotBlank(message = "nivelRisco é obrigatório")
     private String nivelRisco;
 
     private String observacao;

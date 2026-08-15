@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class OperacaoEpiRequest {
 
-    @NotNull(message = "epiId e obrigatorio")
+    @NotNull(message = "epiId é obrigatório")
     private Long epiId;
 
     private boolean obrigatorio = true;

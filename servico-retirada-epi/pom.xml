@@ -12,7 +12,7 @@
 
     <artifactId>servico-retirada-epi</artifactId>
     <name>servico-retirada-epi</name>
-    <description>Catalogo de EPI e retiradas do almoxarifado</description>
+    <description>Catálogo de EPI e retiradas do almoxarifado</description>
 
     <dependencies>
         <dependency>

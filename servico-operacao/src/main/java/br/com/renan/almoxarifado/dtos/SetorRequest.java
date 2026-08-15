@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SetorRequest {
 
-    @NotBlank(message = "nome e obrigatorio")
+    @NotBlank(message = "nome é obrigatório")
     private String nome;
 
     private String descricao;

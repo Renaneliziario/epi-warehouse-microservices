@@ -15,6 +15,6 @@ public class EpiCategoryRequest {
     @NotBlank(message = "Nome é Obrigatório")
     private String name;
 
-    @NotBlank(message = "Description é Obrigatório")
+    @NotBlank(message = "Descrição é Obrigatória")
     private String description;
 }

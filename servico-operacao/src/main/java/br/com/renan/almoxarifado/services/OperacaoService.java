@@ -25,15 +25,15 @@ public class OperacaoService {
     private final SetorRepository setorRepository;
 
     public OperacaoResponse create(OperacaoRequest request) {
-        log.info("Cadastrando operacao, nome={}, setorId={}", request.getNome(), request.getSetorId());
+        log.info("Cadastrando operação, nome={}, setorId={}", request.getNome(), request.getSetorId());
         if (!setorRepository.existsById(request.getSetorId())) {
-            log.warn("Setor inexistente ao cadastrar operacao, setorId={}", request.getSetorId());
+            log.warn("Setor inexistente ao cadastrar operação, setorId={}", request.getSetorId());
             throw new SetorNotFoundException(request.getSetorId());
         }
         Operacao operacao = new Operacao(null, request.getNome(), request.getDescricao(), request.getSetorId(),
                 LocalDateTime.now());
         Operacao saved = repository.save(operacao);
-        log.info("Operacao cadastrada, id={}", saved.getId());
+        log.info("Operação cadastrada, id={}", saved.getId());
         return OperacaoResponse.from(saved);
     }
 

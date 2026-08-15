@@ -22,7 +22,7 @@ public class OperacaoRiscoService {
     private final RiscoService riscoService;
 
     public OperacaoRiscoResponse create(long operacaoId, OperacaoRiscoRequest request) {
-        log.info("Associando risco a operacao, operacaoId={}, riscoId={}", operacaoId, request.getRiscoId());
+        log.info("Associando risco a operação, operacaoId={}, riscoId={}", operacaoId, request.getRiscoId());
         operacaoService.findEntity(operacaoId);
         riscoService.findEntity(request.getRiscoId());
         OperacaoRisco operacaoRisco = new OperacaoRisco(null, operacaoId, request.getRiscoId(),

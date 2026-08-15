@@ -13,13 +13,13 @@ import lombok.Setter;
 @AllArgsConstructor
 public class EpiWithdrawalRequest {
 
-    @NotNull(message = "epiId e obrigatorio")
+    @NotNull(message = "epiId é obrigatório")
     private Long epiId;
 
-    @NotNull(message = "employeeId e obrigatorio")
+    @NotNull(message = "employeeId é obrigatório")
     private Long employeeId;
 
-    @NotNull(message = "quantity e obrigatorio")
-    @Min(value = 1, message = "quantity deve ser no minimo 1")
+    @NotNull(message = "quantity é obrigatório")
+    @Min(value = 1, message = "quantity deve ser no mínimo 1")
     private Integer quantity;
 }

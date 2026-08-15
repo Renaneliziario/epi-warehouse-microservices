@@ -25,7 +25,7 @@ public class EpiService {
     private final EpiCategoryClient epiCategoryClient;
 
     public EpiResponse create(EpiRequest request) {
-        log.info("Cadastrando EPI no catalogo, nome={}, epiCategoryId={}", request.getName(), request.getEpiCategoryId());
+        log.info("Cadastrando EPI no catálogo, nome={}, epiCategoryId={}", request.getName(), request.getEpiCategoryId());
         if (!epiCategoryClient.exists(request.getEpiCategoryId())) {
             log.warn("Categoria inexistente ao cadastrar EPI, epiCategoryId={}", request.getEpiCategoryId());
             throw new EpiCategoryNotFoundException(request.getEpiCategoryId());

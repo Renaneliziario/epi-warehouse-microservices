@@ -12,11 +12,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class RiscoRequest {
 
-    @NotBlank(message = "nome e obrigatorio")
+    @NotBlank(message = "nome é obrigatório")
     private String nome;
 
     private String descricao;
 
-    @NotBlank(message = "categoria e obrigatoria")
+    @NotBlank(message = "categoria é obrigatória")
     private String categoria;
 }

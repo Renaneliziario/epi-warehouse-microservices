@@ -15,11 +15,12 @@ public class OperacaoEpiResponse {
     private long id;
     private long operacaoId;
     private long epiId;
+    private String epiName;
     private boolean obrigatorio;
     private String observacao;
 
-    public static OperacaoEpiResponse from(OperacaoEpi operacaoEpi) {
+    public static OperacaoEpiResponse from(OperacaoEpi operacaoEpi, String epiName) {
         return new OperacaoEpiResponse(operacaoEpi.getId(), operacaoEpi.getOperacaoId(), operacaoEpi.getEpiId(),
-                operacaoEpi.isObrigatorio(), operacaoEpi.getObservacao());
+                epiName, operacaoEpi.isObrigatorio(), operacaoEpi.getObservacao());
     }
 }

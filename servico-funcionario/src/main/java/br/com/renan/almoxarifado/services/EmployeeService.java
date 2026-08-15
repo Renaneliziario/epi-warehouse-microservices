@@ -41,7 +41,7 @@ public class EmployeeService {
     public EmployeeResponse findById(long id) {
         Employee employee = repository.findById(id)
                 .orElseThrow(() -> {
-                    log.warn("Colaborador nao encontrado, id={}", id);
+                    log.warn("Colaborador não encontrado, id={}", id);
                     return new EmployeeNotFoundException(id);
                 });
         return EmployeeResponse.from(employee);

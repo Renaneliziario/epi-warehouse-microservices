@@ -1,0 +1,27 @@
+server:
+  port: 8083
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:db-epiwithdrawal
+    driverClassName: org.h2.Driver
+    username: sa
+    password: ${DB_PASSWORD:password}
+  jpa:
+    hibernate:
+      ddl-auto: update
+  h2:
+    console:
+      enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+
+servico-funcionario:
+  url: ${SERVICO_FUNCIONARIO_URL:http://localhost:8081}
+
+servico-categoria-epi:
+  url: ${SERVICO_CATEGORIA_EPI_URL:http://localhost:8082}

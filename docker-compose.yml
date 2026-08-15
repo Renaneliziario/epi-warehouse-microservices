@@ -60,3 +60,37 @@ services:
         condition: service_started
       servico-categoria-epi:
         condition: service_started
+
+  postgres-operacao:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_DB=db_operacao
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-password}
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  servico-operacao:
+    build:
+      context: .
+      dockerfile: servico-operacao/Dockerfile
+    ports:
+      - "8084:8084"
+    environment:
+      - TZ=America/Sao_Paulo
+      - CONFIG_SERVER_URL=http://servidor-config:8888
+      - DB_HOST=postgres-operacao
+      - DB_PASSWORD=${DB_PASSWORD:-password}
+      - SERVICO_RETIRADA_EPI_URL=http://servico-retirada-epi:8083
+    depends_on:
+      servidor-config:
+        condition: service_healthy
+      postgres-operacao:
+        condition: service_healthy
+      servico-retirada-epi:
+        condition: service_started

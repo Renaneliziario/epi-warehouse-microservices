@@ -41,4 +41,9 @@ public class EpiController {
     public EpiResponse epiDoDia() {
         return service.randomOfTheDay();
     }
+
+    @GetMapping("/{id}/exists")
+    public ResponseEntity<Void> exists(@PathVariable long id) {
+        return service.exists(id) ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+    }
 }

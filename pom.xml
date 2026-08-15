@@ -44,6 +44,7 @@
         <module>servico-funcionario</module>
         <module>servico-categoria-epi</module>
         <module>servico-retirada-epi</module>
+        <module>servico-operacao</module>
     </modules>
 
     <build>

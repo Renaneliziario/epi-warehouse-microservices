@@ -6,12 +6,12 @@ COPY servico-funcionario/pom.xml servico-funcionario/pom.xml
 COPY servico-categoria-epi/pom.xml servico-categoria-epi/pom.xml
 COPY servico-retirada-epi/pom.xml servico-retirada-epi/pom.xml
 COPY servico-operacao/pom.xml servico-operacao/pom.xml
-RUN mvn -pl servico-retirada-epi -am dependency:go-offline
-COPY servico-retirada-epi/src servico-retirada-epi/src
-RUN mvn -pl servico-retirada-epi -am package -DskipTests
+RUN mvn -pl servico-operacao -am dependency:go-offline
+COPY servico-operacao/src servico-operacao/src
+RUN mvn -pl servico-operacao -am package -DskipTests
 
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
-COPY --from=build /app/servico-retirada-epi/target/*.jar app.jar
-EXPOSE 8083
+COPY --from=build /app/servico-operacao/target/*.jar app.jar
+EXPOSE 8084
 ENTRYPOINT ["java", "-jar", "app.jar"]

@@ -5,6 +5,7 @@ COPY servidor-config/pom.xml servidor-config/pom.xml
 COPY servico-funcionario/pom.xml servico-funcionario/pom.xml
 COPY servico-categoria-epi/pom.xml servico-categoria-epi/pom.xml
 COPY servico-retirada-epi/pom.xml servico-retirada-epi/pom.xml
+COPY servico-operacao/pom.xml servico-operacao/pom.xml
 RUN mvn -pl servico-funcionario -am dependency:go-offline
 COPY servico-funcionario/src servico-funcionario/src
 RUN mvn -pl servico-funcionario -am package -DskipTests

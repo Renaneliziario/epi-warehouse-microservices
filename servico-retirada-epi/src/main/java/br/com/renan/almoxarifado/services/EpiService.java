@@ -56,6 +56,10 @@ public class EpiService {
         return EpiResponse.from(epi);
     }
 
+    public boolean exists(long id) {
+        return repository.existsById(id);
+    }
+
     Epi findEntity(long id) {
         return repository.findById(id).orElseThrow(() -> new EpiNotFoundException(id));
     }

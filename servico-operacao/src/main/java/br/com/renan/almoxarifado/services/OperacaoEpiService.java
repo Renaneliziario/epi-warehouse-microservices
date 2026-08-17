@@ -41,7 +41,10 @@ public class OperacaoEpiService {
         List<OperacaoEpiResponse> responses = new ArrayList<>();
         for (OperacaoEpi vinculo : vinculos) {
             EpiInfo epiInfo = epiClient.fetch(vinculo.getEpiId());
-            String nome = epiInfo != null ? epiInfo.getName() : null;
+            if (epiInfo == null) {
+                log.warn("EPI vinculado nao existe mais no catalogo, epiId={}", vinculo.getEpiId());
+            }
+            String nome = epiInfo != null ? epiInfo.getName() : "(EPI removido do catálogo)";
             responses.add(OperacaoEpiResponse.from(vinculo, nome));
         }
         return responses;

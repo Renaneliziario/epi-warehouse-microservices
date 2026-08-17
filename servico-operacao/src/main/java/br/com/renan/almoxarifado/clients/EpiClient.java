@@ -27,9 +27,16 @@ public class EpiClient {
     }
 
     public EpiInfo fetch(long epiId) {
-        return restClient.get()
-                .uri("/epis/{id}", epiId)
-                .retrieve()
-                .body(EpiInfo.class);
+        try {
+            return restClient.get()
+                    .uri("/epis/{id}", epiId)
+                    .retrieve()
+                    .body(EpiInfo.class);
+        } catch (HttpClientErrorException.NotFound | HttpClientErrorException.UnprocessableEntity ex) {
+            // GET /epis/{id} no servico-retirada-epi devolve 422 pra id inexistente
+            // (regra de negocio la), nao 404. Mantemos os dois catches porque o
+            // endpoint /exists desse mesmo client usa 404 de verdade.
+            return null;
+        }
     }
 }
